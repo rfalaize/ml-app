@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  </head>
+  <body style="background-color: #f1f2f6;">
+    <!--h1>{{ title }}</h1-->
+    <div class="container documents">
+      <div class="example">
+          <div class="row">
+            <div class="col-md-4">
+              <h2 class="example-title">Predict</h2>
+              <div class="row">
+                <p>Enter a value:</p>
+                <input type="number" (change)="predictLinearValue($event.target.value)" />
+                <p>Prediction: {{ predictions }}</p>
+              </div>
+              <div class="row">
+                <br>
+                <p>Training set</p>
+              </div>
+              <div class="row">
+                <hot-table
+                  [colHeaders]="true"
+                  [rowHeaders]="true"
+                  [data]="dataset">
+                </hot-table>
+              </div>
+              <div class="row">
+                <br>
+                <button type="button" class="btn btn-info btn-block" (click)="trainLinearModel()">Train</button>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <h2 class="example-title">Graph</h2>
+              <div>
+                <canvas id="canvas">{{ chart }}</canvas>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+
+
