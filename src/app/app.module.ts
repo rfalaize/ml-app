@@ -2,14 +2,24 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HotTableModule } from '@handsontable/angular';
 import { AppComponent } from './app.component';
-
+import { RegressionComponent } from './regression/regression.component';
+import { MnistComponent } from './mnist/mnist.component';
+import { RouterModule, Routes } from '@angular/router';
+/* import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; NgbModule.forRoot() */
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RegressionComponent,
+    MnistComponent
   ],
   imports: [
-    BrowserModule, HotTableModule.forRoot()
+    BrowserModule, 
+    HotTableModule.forRoot(),
+    RouterModule.forRoot([
+      { path: 'regression', component: RegressionComponent },
+      { path: 'mnist', component: MnistComponent }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
