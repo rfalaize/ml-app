@@ -6,11 +6,12 @@ import {MnistModel} from './mnistmodel';
 import { Model } from '@tensorflow/tfjs';
 import { IModelSubscriber } from './imodelsubscriber';
 import * as Chart from 'chart.js';
+import { DrawableDirective } from './drawable.directive';
 
 @Component({
   selector: 'mnist-component',
   templateUrl: './mnist.component.html',
-  styleUrls: ['./mnist.component.scss']
+  styleUrls: ['./mnist.component.scss', './../../assets/styles/index.scss']
 })
 
 export class MnistComponent implements OnInit, IModelSubscriber {
@@ -25,6 +26,9 @@ export class MnistComponent implements OnInit, IModelSubscriber {
   chart: any;
   readonly colorOrange = "#FFA631";
   readonly colorGreen = "#26C281";
+
+  @ViewChild(DrawableDirective) canvas;
+  prediction: any;
 
   ngOnInit() {
     console.log('Starting application...');
@@ -89,6 +93,7 @@ export class MnistComponent implements OnInit, IModelSubscriber {
     });
     // create new model
     this.initializeModel();
+    this.prediction = "";
   }
 
   async initializeModel() {
@@ -156,6 +161,24 @@ export class MnistComponent implements OnInit, IModelSubscriber {
       imageData.data[j + 3] = 255;
     }
     ctx.putImageData(imageData, 0, 0);
+  }
+
+  async predictImage(imageData: ImageData) {
+    console.log('Predicting image...');
+    const pred = await tf.tidy(() => {
+
+      // Convert the canvas pixels to 
+      let img = tf.fromPixels(imageData, 1);
+      /*img = img.reshape([1, 28, 28, 1]);
+      img = tf.cast(img, 'float32');
+
+      // Make and format the predications
+      const output = this.model.model.predict(img) as any;
+
+      // Save predictions on the component
+      this.prediction = Array.from(output.dataSync()); */
+    });
+
   }
 
 }

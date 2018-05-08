@@ -5,13 +5,14 @@ import { AppComponent } from './app.component';
 import { RegressionComponent } from './regression/regression.component';
 import { MnistComponent } from './mnist/mnist.component';
 import { RouterModule, Routes } from '@angular/router';
-/* import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; NgbModule.forRoot() */
+import { DrawableDirective } from './mnist/drawable.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegressionComponent,
-    MnistComponent
+    MnistComponent,
+    DrawableDirective
   ],
   imports: [
     BrowserModule, 
