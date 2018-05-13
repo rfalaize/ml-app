@@ -12,12 +12,10 @@
                 <h6 class="lh-1">Draw digit</h6>
               </div>
               <div class="layer w-100">
-                <div ng-style="{'visibility': isTrained ? 'visible' : 'hidden'}">
-                  <div class="wrapper">
-                    <canvas drawable (newImage)="predictImage($event)"></canvas><br>
-                  </div>
-                  <button class="btn btn-sm btn-warning" (click)="canvas.clear()">Clear</button>
+                <div class="wrapper">
+                  <canvas drawable (newImage)="predictImage($event)"></canvas><br>
                 </div>
+                <button class="btn btn-sm btn-warning" (click)="clearCanvas()">Clear</button>
               </div>
             </div>
           </div>

@@ -129,4 +129,5 @@ export class MnistModel {
         await this.train();
         this.predictNextBatch();
     }
+
 }

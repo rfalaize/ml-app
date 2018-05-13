@@ -47,7 +47,6 @@ export class MnistComponent implements OnInit, IModelSubscriber {
   
   async reset() {
     // predictions histogram
-    this.predictions = new Array(10).fill(0);
     this.histogram = new Chart('predictions-histogram', {
       type: 'bar',
       data: {
@@ -208,23 +207,34 @@ export class MnistComponent implements OnInit, IModelSubscriber {
 
       // Convert the canvas pixels to 
       let img = tf.fromPixels(imageData, 1);
-      /*img = img.reshape([1, 28, 28, 1]);
+      img = img.reshape([1, 28, 28]);
+      img = tf.expandDims(img, 3);
       img = tf.cast(img, 'float32');
 
       // Make and format the predications
       const output = this.model.model.predict(img) as any;
 
       // Save predictions on the component
-      this.prediction = Array.from(output.dataSync()); */
+      this.predictions = Array.from(output.dataSync()); 
+      console.log('Predictions: ', this.predictions);
 
-      this.predictions = [0.1,0.2,0.3,0.5,0.1,0.22,0.05,0.13,0.24,0.16];
       this.histogram.data.datasets[0].data = this.predictions;
       var colors = new Array(10).fill('#ffe6cc');
-      colors[3] = this.colorOrange;
+      //highlight max
+      var imax = this.predictions.indexOf(Math.max(...this.predictions));
+      colors[imax] = this.colorOrange;
       this.histogram.data.datasets[0].backgroundColor = colors,
       this.histogram.update();
     });
 
+  }
+
+  clearCanvas(){
+    console.log('Clearing canvas...');
+    this.canvas.clear();
+    this.predictions = new Array(10).fill(0);
+    this.histogram.data.datasets[0].data = this.predictions;
+    this.histogram.update();
   }
 
 }

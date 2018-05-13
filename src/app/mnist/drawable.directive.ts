@@ -23,6 +23,7 @@ import {
     ngOnInit() {
       this.canvas = this.el.nativeElement as HTMLCanvasElement;
       this.ctx = this.canvas.getContext('2d');
+      this.clear();
     }
   
     @HostListener('mouseup', ['$event'])
@@ -49,7 +50,7 @@ import {
       this.ctx.beginPath();
       this.ctx.lineWidth = 10;
       this.ctx.lineCap = 'round';
-      this.ctx.strokeStyle = '#111111';
+      this.ctx.strokeStyle = 'white';
       const rescale = 0.666;
       this.ctx.moveTo(this.pos.x / rescale, this.pos.y);
       this.setPosition(e);
@@ -71,9 +72,12 @@ import {
   
     clear() {
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      this.ctx.rect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      this.ctx.fill();
     }
   
     getImgData(): ImageData {
+      const scaled = this.ctx.drawImage(this.canvas, 0, 0, 28, 28);
       return this.ctx.getImageData(0, 0, 28, 28);
     }
   }
