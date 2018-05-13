@@ -15,7 +15,7 @@ import {
     pos = { x: 0, y: 0 };
     ctx: CanvasRenderingContext2D;
     canvas: HTMLCanvasElement;
-  
+
     @Output() newImage = new EventEmitter();
   
     constructor(private el: ElementRef) {}
@@ -32,13 +32,11 @@ import {
   
     @HostListener('mouseenter', ['$event'])
     onEnter(e) {
-      console.log('mouseenter: ', e);
       this.setPosition(e);
     }
   
     @HostListener('mousedown', ['$event'])
     onMove(e) {
-      console.log('mousedown: ', e);
       this.setPosition(e);
     }
   
@@ -47,18 +45,17 @@ import {
       if (e.buttons !== 1) {
         return;
       }
-      console.log('mousemove: ', e);
-
-      this.ctx.beginPath(); // begin
+  
+      this.ctx.beginPath();
       this.ctx.lineWidth = 10;
       this.ctx.lineCap = 'round';
       this.ctx.strokeStyle = '#111111';
-  
-      this.ctx.moveTo(this.pos.x, this.pos.y);
+      const rescale = 0.666;
+      this.ctx.moveTo(this.pos.x / rescale, this.pos.y);
       this.setPosition(e);
-      this.ctx.lineTo(this.pos.x, this.pos.y);
-  
+      this.ctx.lineTo(this.pos.x / rescale, this.pos.y);
       this.ctx.stroke();
+
     }
   
     @HostListener('resize', ['$event'])
@@ -77,7 +74,6 @@ import {
     }
   
     getImgData(): ImageData {
-      const scaled = this.ctx.drawImage(this.canvas, 0, 0, 28, 28);
       return this.ctx.getImageData(0, 0, 28, 28);
     }
   }

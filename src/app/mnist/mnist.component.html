@@ -2,40 +2,37 @@
     <div class="masonry-sizer col-md-6"></div>
   
     <!--Preditions-->
-    <div class="masonry-item  w-100">
-      <div class="row gap-20">
-
-        <!--Input-->
-        <div class='col-md-3'>
-          <div class="layers bd bgc-white p-20">
-            <div class="layer w-100 mB-10">
-              <h6 class="lh-1">Draw digit below</h6>
-            </div>
-            <div class="layer w-100">
-              <!--Drawable canvas-->
-              <div class="row justify-content-center">
-                <div class="col-sm">
+    <div class="masonry-item col-12">
+      <div class="bd bgc-white">
+        <div class="peers fxw-nw@lg+ ai-s">
+          <!--Drawable canvas-->
+          <div class="peer w-70p@lg+ w-100@lg- p-20">
+            <div class="layers">
+              <div class="layer w-100 mB-10">
+                <h6 class="lh-1">Draw digit</h6>
+              </div>
+              <div class="layer w-100">
+                <div ng-style="{'visibility': isTrained ? 'visible' : 'hidden'}">
                   <div class="wrapper">
                     <canvas drawable (newImage)="predictImage($event)"></canvas><br>
                   </div>
-                  <button class="btn btn-sm btn-warning" (click)="canvas.clear()">Erase</button>
+                  <button class="btn btn-sm btn-warning" (click)="canvas.clear()">Clear</button>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-  
-        <!-- Output -->
-        <div class='col-md-3'>
-            <div class="layers bd bgc-white p-20">
+          <!--Histogram-->
+          <div class="peer w-70p@lg+ w-100@lg- p-20">
+            <div class="layers">
               <div class="layer w-100 mB-10">
-                <h6 class="lh-1">Prediction</h6>
+                <h6 class="lh-1">Predictions</h6>
               </div>
-              <div class="layer w-100">
-                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">{{ prediction }}</span>
+              <div class="layer w-100 p-20">
+                <canvas id="predictions-histogram" height="150" width="400">{{ histogram }}</canvas>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
 
@@ -43,13 +40,13 @@
     <div class="masonry-item col-12">
       <div class="bd bgc-white p-20">
         <div class="layers">
-            <div class="layer w-100 mB-10">
-              <h6 class="lh-1">Graph</h6>
-            </div>
-            <div class="layer w-100">
-              <canvas id="canvas">{{ chart }}</canvas>
-            </div>
+          <div class="layer w-100 mB-10">
+            <h6 class="lh-1">Graph</h6>
           </div>
+          <div class="layer w-100">
+            <canvas id="training-graph">{{ chart }}</canvas>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -22,16 +22,21 @@ export class MnistComponent implements OnInit, IModelSubscriber {
   lossLabelElement: HTMLElement;
   accuracyLabelElement: HTMLElement;
   model: MnistModel;
+  isTrained: boolean;
   updateValues: any[];
+  histogram: any;
   chart: any;
   readonly colorOrange = "#FFA631";
   readonly colorGreen = "#26C281";
 
   @ViewChild(DrawableDirective) canvas;
+  predictions: number[];
   prediction: any;
+  
 
   ngOnInit() {
     console.log('Starting application...');
+    this.isTrained = false;
     this.statusElement = document.getElementById('status');
     this.messageElement = document.getElementById('message');
     this.imagesElement = document.getElementById('images');
@@ -41,8 +46,40 @@ export class MnistComponent implements OnInit, IModelSubscriber {
   }
   
   async reset() {
-    // set up chart
-    this.chart = new Chart('canvas', {
+    // predictions histogram
+    this.predictions = new Array(10).fill(0);
+    this.histogram = new Chart('predictions-histogram', {
+      type: 'bar',
+      data: {
+        labels: ['0','1','2','3','4','5','6','7','8','9'],
+        datasets: [
+          {
+            label: "probabilities",
+            data: []
+          }
+        ]
+      },
+      options: {
+        legend: { display: false },
+        title: {
+          display: false,
+          text: 'Probabilities'
+        },
+        scales: {
+          xAxes: [{ gridLines: { display: false } }],
+          yAxes: [{ gridLines: { display: false },
+              display: true,
+              ticks: {
+                min: 0,
+                max: 1
+              }
+          }]
+        }
+      }
+    });
+
+    // training chart
+    this.chart = new Chart('training-graph', {
       type: 'line',
       data: {
           datasets: [{
@@ -91,6 +128,7 @@ export class MnistComponent implements OnInit, IModelSubscriber {
         }
       }
     });
+
     // create new model
     this.initializeModel();
     this.prediction = "";
@@ -102,6 +140,7 @@ export class MnistComponent implements OnInit, IModelSubscriber {
     this.updateValues = [];
     await this.model.loaddataset();
     await this.model.train();
+    this.isTrained = true;
     var testResults = await this.model.predictNextBatch();
     console.log('Test results: ', testResults);
     this.showTestResults(testResults.batch, testResults.predictions, testResults.labels);
@@ -177,6 +216,13 @@ export class MnistComponent implements OnInit, IModelSubscriber {
 
       // Save predictions on the component
       this.prediction = Array.from(output.dataSync()); */
+
+      this.predictions = [0.1,0.2,0.3,0.5,0.1,0.22,0.05,0.13,0.24,0.16];
+      this.histogram.data.datasets[0].data = this.predictions;
+      var colors = new Array(10).fill('#ffe6cc');
+      colors[3] = this.colorOrange;
+      this.histogram.data.datasets[0].backgroundColor = colors,
+      this.histogram.update();
     });
 
   }
