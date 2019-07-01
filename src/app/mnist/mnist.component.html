@@ -1,66 +1,86 @@
 <div class="row gap-20 masonry pos-r">
-    <div class="masonry-sizer col-md-6"></div>
-  
-    <!--Preditions-->
-    <div class="masonry-item col-12">
-      <div class="bd bgc-white">
-        <div class="peers fxw-nw@lg+ ai-s">
-          <!--Drawable canvas-->
-          <div class="peer w-70p@lg+ w-100@lg- p-20">
-            <div class="layers">
-              <div class="layer w-100 mB-10">
-                <h6 class="lh-1">Draw digit</h6>
-              </div>
-              <div class="layer w-100">
-                <div class="wrapper">
-                  <canvas drawable (newImage)="predictImage($event)"></canvas><br>
-                </div>
-                <button class="btn btn-sm btn-warning" (click)="clearCanvas()">Clear</button>
-              </div>
-            </div>
-          </div>
-          <!--Histogram-->
-          <div class="peer w-70p@lg+ w-100@lg- p-20">
-            <div class="layers">
-              <div class="layer w-100 mB-10">
-                <h6 class="lh-1">Predictions</h6>
-              </div>
-              <div class="layer w-100 p-20">
-                <canvas id="predictions-histogram" height="150" width="400">{{ histogram }}</canvas>
-              </div>
-            </div>
-          </div>
+  <div class="masonry-sizer col-md-6"></div>
+
+  <!--Model-->
+  <div class="masonry-item col-12">
+    <div class="bd bgc-white p-20">
+      <div class="layers">
+        <div class="layer w-100 mB-10">
+          <h6 class="lh-1">Model</h6>
+          <button class="btn btn-sm btn-dark" (click)="importModel()">
+            Load trained model
+          </button>
+          <button class="btn btn-sm btn-dark" (click)="trainModel()">
+            Train new model
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!--Training-->
-    <div class="masonry-item col-12">
-      <div class="bd bgc-white p-20">
-        <div class="layers">
-          <div class="layer w-100 mB-10">
-            <h6 class="lh-1">Graph</h6>
-          </div>
-          <div class="layer w-100">
-            <canvas id="training-graph">{{ chart }}</canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!--Test-->
-    <div class="masonry-item col-12">
-      <div class="bd bgc-white p-20">
-        <div class="layers">
+  <!--Preditions-->
+  <div class="masonry-item col-12">
+    <div class="bd bgc-white">
+      <div class="peers fxw-nw@lg+ ai-s">
+        <!--Drawable canvas-->
+        <div class="peer w-70p@lg+ w-100@lg- p-20">
+          <div class="layers">
             <div class="layer w-100 mB-10">
-              <h6 class="lh-1">Test set</h6>
+              <h6 class="lh-1">Draw digit</h6>
             </div>
             <div class="layer w-100">
-              <div id="images"></div>
+              <div class="wrapper">
+                <canvas drawable (newImage)="predictImage($event)"></canvas
+                ><br />
+              </div>
+              <button class="btn btn-sm btn-warning" (click)="clearCanvas()">
+                Clear
+              </button>
             </div>
           </div>
+        </div>
+        <!--Histogram-->
+        <div class="peer w-70p@lg+ w-100@lg- p-20">
+          <div class="layers">
+            <div class="layer w-100 mB-10">
+              <h6 class="lh-1">Predictions</h6>
+            </div>
+            <div class="layer w-100 p-20">
+              <canvas id="predictions-histogram" height="150" width="400">{{
+                histogram
+              }}</canvas>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 
+  <!--Training-->
+  <div class="masonry-item col-12">
+    <div class="bd bgc-white p-20">
+      <div class="layers">
+        <div class="layer w-100 mB-10">
+          <h6 class="lh-1">Graph</h6>
+        </div>
+        <div class="layer w-100">
+          <canvas id="training-graph">{{ chart }}</canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Test-->
+  <div class="masonry-item col-12">
+    <div class="bd bgc-white p-20">
+      <div class="layers">
+        <div class="layer w-100 mB-10">
+          <h6 class="lh-1">Test set</h6>
+        </div>
+        <div class="layer w-100">
+          <div id="images"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
