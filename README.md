@@ -1,4 +1,4 @@
-# Mlapp
+# ml-app
 
 Machine learning playground using tensorflowjs:
 
